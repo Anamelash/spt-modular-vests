@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- net10 to match the server. The client's pure (Unity-free) sources are linked in
+         below, so one project covers both halves. -->
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\server\ModularVests.Server\ModularVests.Server.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- client code with no game dependency: the stores are plain data + Newtonsoft
+         (ClusterGrid comes with the server assembly) -->
+    <Compile Include="..\..\client\ModularVests.Client\Bones\BoneStore.cs" Link="Client\BoneStore.cs" />
+    <Compile Include="..\..\client\ModularVests.Client\Bones\MountStore.cs" Link="Client\MountStore.cs" />
+    <Compile Include="..\..\client\ModularVests.Client\Bones\AtomicFile.cs" Link="Client\AtomicFile.cs" />
+    <Compile Include="..\..\client\ModularVests.Client\GridRows.cs" Link="Client\GridRows.cs" />
+    <!-- the editor's math (surface raycasts, mirroring, cell names) is Unity-free as well -->
+    <Compile Include="..\..\client\ModularVests.DevTools\Geometry\*.cs" Link="DevTools\%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\server\mod-files\items.jsonc" Link="items.jsonc" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\server\mod-files\bots.jsonc" Link="bots.jsonc" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\server\mod-files\trader\trader.jsonc" Link="trader.jsonc" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\client\ModularVests.Client\bones.json" Link="bones.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\client\ModularVests.Client\mounts.json" Link="mounts.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\server\bundles.json" Link="bundles.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- lets the collision test find the vanilla and WTT databases; it skips without them -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>SptGameDir</_Parameter1>
+      <_Parameter2>$(SptGameDir)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

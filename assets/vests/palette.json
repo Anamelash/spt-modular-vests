@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "referenceMaterialColor": [0.8, 0.8, 0.8, 1.0],
+  "tolerance": 4,
+  "colors": {
+    "coyote": {
+      "fabric": [104, 88, 53],
+      "webbing": [96, 81, 49],
+      "binding": [88, 74, 46],
+      "velcro": [91, 77, 48],
+      "elastic_mesh": [65, 58, 43],
+      "thread": [111, 95, 58],
+      "hw_plastic": [78, 68, 52],
+      "hw_metal": [31, 32, 31],
+      "zipper_tape": [88, 75, 46],
+      "lining": [24, 25, 24]
+    },
+    "olive": {
+      "fabric": [58, 61, 46],
+      "webbing": [53, 57, 42],
+      "binding": [50, 53, 40],
+      "velcro": [51, 54, 40],
+      "elastic_mesh": [38, 42, 34],
+      "thread": [63, 66, 50],
+      "hw_plastic": [43, 48, 37],
+      "hw_metal": [29, 31, 29],
+      "zipper_tape": [49, 53, 40],
+      "lining": [22, 24, 22]
+    },
+    "black": {
+      "fabric": [22, 24, 26],
+      "webbing": [20, 22, 23],
+      "binding": [18, 20, 21],
+      "velcro": [18, 20, 21],
+      "elastic_mesh": [15, 17, 18],
+      "thread": [27, 29, 31],
+      "hw_plastic": [23, 24, 24],
+      "hw_metal": [24, 25, 25],
+      "zipper_tape": [18, 20, 21],
+      "lining": [12, 14, 15]
+    },
+    "multicam": {
+      "fabric": [80, 72, 54],
+      "webbing": [74, 66, 50],
+      "binding": [78, 67, 46],
+      "velcro": [76, 65, 45],
+      "elastic_mesh": [50, 47, 38],
+      "thread": [84, 76, 58],
+      "hw_plastic": [78, 72, 57],
+      "hw_metal": [31, 32, 31],
+      "zipper_tape": [74, 65, 47],
+      "lining": [24, 25, 23]
+    },
+    "emr_summer": {
+      "fabric": [51, 55, 33],
+      "webbing": [48, 52, 34],
+      "binding": [46, 50, 32],
+      "velcro": [45, 49, 32],
+      "elastic_mesh": [33, 37, 27],
+      "thread": [56, 60, 37],
+      "hw_plastic": [39, 44, 33],
+      "hw_metal": [28, 30, 28],
+      "zipper_tape": [44, 48, 31],
+      "lining": [20, 23, 19]
+    }
+  }
+}
+

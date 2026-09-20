@@ -1,0 +1,117 @@
+// The trader that sells the Modular Vests line-up.
+//
+// The trader's id is derived from "key" (SHA-1 of "modularvests:trader:<key>") and is stored
+// in profiles - never rename a shipped key.
+{
+  "key": "anatoly",
+
+  // what the trader pays in when buying back: RUB, USD or EUR
+  "currency": "RUB",
+
+  // seconds between assort refreshes
+  "refreshSeconds": { "min": 3600, "max": 3600 },
+
+  // list the trader's offers on the flea market
+  "sellOnFlea": true,
+
+  // percent the trader keeps when buying an item back; he only buys his own line-up
+  "buyCoef": 40,
+
+  // exactly four levels: player level, money spent at the trader, standing
+  "loyaltyLevels": [
+    { "minLevel": 1, "minSalesSum": 0, "minStanding": 0 },
+    { "minLevel": 15, "minSalesSum": 400000, "minStanding": 0.2 },
+    { "minLevel": 26, "minSalesSum": 1200000, "minStanding": 0.35 },
+    { "minLevel": 36, "minSalesSum": 2500000, "minStanding": 0.5 }
+  ],
+
+  // "en" is required and is used for every language not listed.
+  //
+  // The game's own traders fill these fields like this:
+  //   nickname  - the handle players use ("Prapor", "Ragman"), translated per language
+  //   fullName  - surname, first name and patronymic ("Романенко Павел Егорович")
+  //   firstName - first name AND patronymic ("Павел Егорович"), not the first name alone
+  //   location  - a place in Tarkov ("Посёлок", "Химкомбинат"), not a kind of business
+  //
+  // TODO: fullName and firstName still hold the nickname. Give him a surname and a
+  // patronymic in the shape above, then the trader card reads like a vanilla one.
+  "locales": {
+    "en": {
+      "nickname": "Anatoly",
+      "fullName": "Anatoly",
+      "firstName": "Anatoly",
+      "location": "Tarkov industrial zone",
+      "description": "Before the conflict he sewed load-bearing gear for anyone who paid. Now he cuts, stitches and fits MOLLE rigs and pouches at his own bench, and deals in nothing he did not make himself."
+    },
+    "ru": {
+      "nickname": "Анатолий",
+      "fullName": "Анатолий",
+      "firstName": "Анатолий",
+      "location": "Промзона Таркова",
+      "description": "До конфликта шил разгрузочные системы всем, кто платил. Теперь кроит, строчит и комплектует MOLLE-разгрузки и подсумки за собственным верстаком и торгует только своим."
+    },
+    "ch": {
+      "nickname": "阿纳托利",
+      "fullName": "阿纳托利",
+      "firstName": "阿纳托利",
+      "location": "塔科夫工业区",
+      "description": "冲突之前，谁付钱他就给谁缝承载装具。如今他在自己的工作台前裁剪、缝制、装配 MOLLE 背心和附包，只卖自己做的东西。"
+    },
+    "es": {
+      "nickname": "Anatoly",
+      "fullName": "Anatoly",
+      "firstName": "Anatoly",
+      "location": "Zona industrial de Tarkov",
+      "description": "Antes del conflicto cosía equipo de carga para quien pagara. Ahora corta, cose y monta chalecos y bolsas MOLLE en su propio banco, y no vende nada que no haya hecho él mismo."
+    },
+    "po": {
+      "nickname": "Anatoly",
+      "fullName": "Anatoly",
+      "firstName": "Anatoly",
+      "location": "Zona industrial de Tarkov",
+      "description": "Antes do conflito costurava equipamento de carga para quem pagasse. Agora corta, costura e monta coletes e bolsas MOLLE na própria bancada, e não vende nada que não tenha feito."
+    },
+    "ge": {
+      "nickname": "Anatoly",
+      "fullName": "Anatoly",
+      "firstName": "Anatoly",
+      "location": "Industriegebiet von Tarkow",
+      "description": "Vor dem Konflikt nähte er Trageausrüstung für jeden, der zahlte. Heute schneidet, näht und montiert er MOLLE-Westen und -Taschen an der eigenen Werkbank und handelt mit nichts, was er nicht selbst gemacht hat."
+    },
+    "fr": {
+      "nickname": "Anatoly",
+      "fullName": "Anatoly",
+      "firstName": "Anatoly",
+      "location": "Zone industrielle de Tarkov",
+      "description": "Avant le conflit, il cousait du matériel de portage pour qui payait. Aujourd'hui il coupe, pique et assemble gilets et poches MOLLE à son propre établi, et ne vend rien qu'il n'ait fabriqué lui-même."
+    },
+    "jp": {
+      "nickname": "アナトリー",
+      "fullName": "アナトリー",
+      "firstName": "アナトリー",
+      "location": "タルコフ工業地区",
+      "description": "紛争前は金を払う者なら誰にでも装備を縫っていた。今は自分の作業台で MOLLE キャリアとポーチを裁断し、縫い、組み上げ、自分で作った物しか扱わない。"
+    },
+    "pl": {
+      "nickname": "Anatoly",
+      "fullName": "Anatoly",
+      "firstName": "Anatoly",
+      "location": "Strefa przemysłowa Tarkowa",
+      "description": "Przed konfliktem szył oporządzenie każdemu, kto płacił. Teraz kroi, zszywa i składa kamizelki oraz kieszenie MOLLE przy własnym warsztacie i handluje wyłącznie tym, co zrobił sam."
+    },
+    "tu": {
+      "nickname": "Anatoly",
+      "fullName": "Anatoly",
+      "firstName": "Anatoly",
+      "location": "Tarkov sanayi bölgesi",
+      "description": "Çatışmadan önce parayı verene taşıma teçhizatı dikerdi. Artık kendi tezgâhında MOLLE yelek ve çanta kesiyor, dikiyor, kuruyor ve kendi yapmadığı hiçbir şeyi satmıyor."
+    },
+    "kr": {
+      "nickname": "아나톨리",
+      "fullName": "아나톨리",
+      "firstName": "아나톨리",
+      "location": "타르코프 공업 지구",
+      "description": "분쟁 전에는 돈만 내면 누구에게든 장구류를 지어줬다. 지금은 자기 작업대에서 MOLLE 캐리어와 파우치를 재단하고 박고 조립하며, 직접 만들지 않은 물건은 취급하지 않는다."
+    }
+  }
+}

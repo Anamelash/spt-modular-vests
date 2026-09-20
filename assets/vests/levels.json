@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "readme": [
+    "How bright each colour of the line-up reaches the screen, as a mean over the whole albedo",
+    "(0-255, weighted the way the eye weighs the channels).",
+    "",
+    "The recoloured albedos come out darker than the ones the carriers' own materials were drawn",
+    "for, and by a different amount on each carrier - the surface detail each carrier supplies has",
+    "its own average. build/build-vest-bundles.ps1 measures every albedo and sets the material's",
+    "_Color to target / measured, so a colour lands on the same level whichever carrier wears it.",
+    "That multiplier replaces the donor's own _Color, which is why the target is what is seen",
+    "rather than what is in the texture.",
+    "",
+    "Pouches are not touched by any of this: they carry a material of our own and read correctly.",
+    "For reference, the carriers' vanilla albedos average about 80.",
+    "",
+    "Raise or lower a number here and rebuild - no texture is remade."
+  ],
+  "targetLuma": {
+    "coyote": 85,
+    "olive": 58,
+    "multicam": 80,
+    "black": 24,
+    "emr_summer": 55
+  },
+  "limits": {
+    "note": "a multiplier outside this range means the recolour, not the level, is wrong",
+    "min": 0.5,
+    "max": 2.5
+  }
+}

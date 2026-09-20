@@ -1,0 +1,86 @@
+// Modular Vests: what bots wear, and where the line-up turns up in loot.
+//
+// Every number the outfitter rolls is in here. A broken or missing file only switches the bot
+// and loot half off (Warning in the log) - the items, the trader and the rig window keep working.
+{
+  // false: bots keep their vanilla rigs and nothing is added to loot.
+  "enabled": true,
+
+  // How often our rig turns up next to its prototype: 1.0 means "as often among rigs as the
+  // armor vest it is cloned from is among armor vests", 0.5 half as often.
+  "weightMultiplier": 1.0,
+
+  // Chance (%) that one pouch comes in a colour other than the bot's base colour. A rig with a
+  // "pouchColor" is meant to look matched, so it strays far more rarely than one whose base
+  // colour was rolled at random to begin with.
+  "offColourChance": {
+    "matched": 2,
+    "random": 10
+  },
+
+  // d100 -> how many rifle magazines the chest carries. Rows are read in order: the first row
+  // the roll does not exceed wins. A double pouch covers two, a single one.
+  "rifleMagSlots": [
+    { "upTo": 10, "slots": 2 },
+    { "upTo": 30, "slots": 4 },
+    { "upTo": 80, "slots": 6 },
+    { "upTo": 100, "slots": 8 }
+  ],
+
+  // Chance (%) that the cells left over on the chest stay empty. One roll for the whole chest:
+  // either the whole leftover is filled or none of it is.
+  "chestLeftoverEmptyChance": 50,
+
+  // Each cummerbund cluster, rolled on its own: 1..emptyUpTo - empty; up to partialUpTo -
+  // pouches covering exactly "partialArea" cells; above that - filled up.
+  "cummerbund": {
+    "emptyUpTo": 25,
+    "partialUpTo": 75,
+    "partialArea": 2
+  },
+
+  "loot": {
+    // Containers that already hold a rig's prototype also hold the rig, at this share of the
+    // prototype's weight (at least 1). Containers without the prototype are left alone - our
+    // rigs are the size of theirs, so they fit wherever the prototype fits.
+    "staticRigs": {
+      "weightOfPrototype": 0.5
+    },
+
+    // Loose loot: a spawn point whose pool holds the prototype also offers the rig, assembled
+    // with its panels, plates and a pouch loadout. The prototype's weight times the multiplier
+    // is split over "loadoutsPerRig" loadouts.
+    "looseRigs": {
+      "weightOfPrototype": 0.5,
+      "loadoutsPerRig": 3
+    },
+
+    // Single pouches in containers. No SimpleContainer is in static loot at all, so each entry
+    // names a container and an item already in it to weigh against: every colour of every pouch
+    // enters at "like" x "weight" / 5, which costs the pool one reference item per pouch model.
+    "staticPouches": [
+      // dead scav: screw nuts
+      { "container": "5909e4b686f7747f5b744fa4", "like": "57347c77245977448d35f6e2", "weight": 0.1 },
+      // dead PMC: screw nuts
+      { "container": "6582e6d7b14c3f72eb071420", "like": "57347c77245977448d35f6e2", "weight": 0.1 },
+      // wooden crate: screw nuts
+      { "container": "5d6d2b5486f774785c2ba8ea", "like": "57347c77245977448d35f6e2", "weight": 0.1 },
+      // weapon crate: an AK-74 magazine
+      { "container": "578f87ad245977356274f2cc", "like": "55d480c04bdc2d1d4e8b456a", "weight": 0.1 }
+    ],
+
+    // Single pouches in the backpacks of non-PMC bot types, weighed against an item already in
+    // that type's own backpack pool (an army bandage). A type without it is left alone.
+    "botBackpacks": {
+      "like": "5751a25924597722c463c472",
+      "weight": 0.2
+    },
+
+    // Single pouches in PMC backpacks. That pool is built from prices, so the pouches enter
+    // with the weight the generator gave the reference item.
+    "pmcBackpack": {
+      "like": "5751a25924597722c463c472",
+      "weight": 0.2
+    }
+  }
+}

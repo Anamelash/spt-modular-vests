@@ -1,0 +1,245 @@
+{
+  "schema": 1,
+  "assets": {
+    "trooper/coyote": {
+      "state": "approved",
+      "sha256": "9b98350bf813b0faa6dd9930dfcf3c4ba99842606a532497885e5971f09a9084",
+      "date": "2026-09-20",
+      "note": "pilot approach approved by author"
+    },
+    "trooper/olive": {
+      "state": "approved",
+      "sha256": "3593680f30b24f8a904f2715dd74228ee23daa00b7814614ab5c33a91f66b37a",
+      "date": "2026-09-20",
+      "note": "approved by author after USEC patch-frame mask correction"
+    },
+    "trooper/black": {
+      "state": "approved",
+      "sha256": "ba43c382def81b38423cd4636f65fd99cbc07391acc5f27e93abd1f3ca127992",
+      "date": "2026-09-20",
+      "note": "approved by author after USEC patch-frame mask correction"
+    },
+    "trooper/multicam": {
+      "state": "approved",
+      "sha256": "7fcdfe7029bad6b33ba1f49310d14b266f58c5a5c9bf8d032f2a24fb63e05a26",
+      "date": "2026-09-20",
+      "note": "approved by author after USEC patch-frame mask correction"
+    },
+    "trooper/emr_summer": {
+      "state": "approved",
+      "sha256": "a5cdf05d744c191212a741e1951f4ead3d63f77d2a04c299def673d8ea5763e1",
+      "date": "2026-09-20",
+      "note": "approved by author after USEC patch-frame mask correction"
+    },
+    "otv/coyote": {
+      "state": "approved",
+      "sha256": "d9273176b41369c058cac4935e8ec90b9760731385a48b0a5e2b50a912437e6c",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "otv/olive": {
+      "state": "approved",
+      "sha256": "5bd2ca18ef89c24bb98e041839dce42391e9fcdb853812f65636f5c4ded29aa5",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "otv/black": {
+      "state": "approved",
+      "sha256": "56d62753ec4d2be1ba4a299cb02ab8f2de57adc8592d438de26327eaeaa7bf07",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "otv/multicam": {
+      "state": "approved",
+      "sha256": "ab5b01db06d023d0b724fd6dd6120440cbdb671a4fd5e1cf117acc528f5ead11",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "otv/emr_summer": {
+      "state": "approved",
+      "sha256": "5cd8068fc3ea1bfbf1883dab777f3efef87f5a53e05e6d199830a93998b40506",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "6b43/coyote": {
+      "state": "approved",
+      "sha256": "84f98a735546fe68e0e6bdf8375e8cf66193ec7348a3ea71752c407ea9922eed",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "6b43/olive": {
+      "state": "approved",
+      "sha256": "0005312a3056fbb739b91ac518d7928a9053d508ab36b522776c26e538236ebb",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "6b43/black": {
+      "state": "approved",
+      "sha256": "323f18669473dbe0dd2c48ef551473546aa95a31553230c58c516fdc24268c36",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "6b43/multicam": {
+      "state": "approved",
+      "sha256": "8c8bd662a2bbdc22b43c01f8365d0175e63b62a71707541e8e95215126a8c41d",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "6b43/emr_summer": {
+      "state": "approved",
+      "sha256": "658808c2751967ce86636b979a9aa833dcd776ff3a51aaff453b3939f0ced2b6",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "untar/coyote": {
+      "state": "approved",
+      "sha256": "4c2f69bb05cb136940726cfa3cc4b741f027827c5058de2b2a0aad327a0fdcce",
+      "date": "2026-09-20",
+      "note": "approved by author after corrected review renderer"
+    },
+    "untar/olive": {
+      "state": "approved",
+      "sha256": "57867293a95ed69e0545d6be32ea632a9397ca3190d5dde5021c9d4420bca2a5",
+      "date": "2026-09-20",
+      "note": "approved by author after corrected review renderer"
+    },
+    "untar/black": {
+      "state": "approved",
+      "sha256": "4f66b4cf17db0ee7efde434de9760f4f543502e29710b6993298f90e80f95ed5",
+      "date": "2026-09-20",
+      "note": "approved by author after corrected review renderer"
+    },
+    "untar/multicam": {
+      "state": "approved",
+      "sha256": "969eb807d11fc5ba7aaa1bf7b7ee37f8a026f6eca091a5da7ced7ec648e18e5d",
+      "date": "2026-09-20",
+      "note": "approved by author after corrected review renderer"
+    },
+    "untar/emr_summer": {
+      "state": "approved",
+      "sha256": "afe92b545d4fbfec708466507d2751e73c1d8ffff74103a8a70cc80df09e8332",
+      "date": "2026-09-20",
+      "note": "approved by author after corrected review renderer"
+    },
+    "6b45/coyote": {
+      "state": "approved",
+      "sha256": "906659cd287c52c9820f0b9f61d0fdd851f378cdde781dfc04f42fa9a67fd113",
+      "date": "2026-09-21",
+      "note": "approved by author for game import after final textures_v2 packaging"
+    },
+    "6b45/olive": {
+      "state": "approved",
+      "sha256": "75b8f73051f8ab793b8a11e5b7953e93a696aba95e0b21e5fa2e977e4137754b",
+      "date": "2026-09-21",
+      "note": "approved by author for game import after final textures_v2 packaging"
+    },
+    "6b45/black": {
+      "state": "approved",
+      "sha256": "bfd5dcb9f5bc1b3da84015a5bae79819d3494c1c3ecd6ca2d7252e2cf3346795",
+      "date": "2026-09-21",
+      "note": "approved by author for game import after final textures_v2 packaging"
+    },
+    "6b45/multicam": {
+      "state": "approved",
+      "sha256": "711416f67e3d1664412c7033e5dcb4a59da1f357228e2a32278ed51ab3b790ac",
+      "date": "2026-09-21",
+      "note": "approved by author for game import after final textures_v2 packaging"
+    },
+    "6b45/emr_summer": {
+      "state": "approved",
+      "sha256": "f5588a49793fb9ffcaf30d87b17d8154abf41677defe9613cb66d42bf1916e2d",
+      "date": "2026-09-21",
+      "note": "approved by author for game import after final textures_v2 packaging"
+    },
+    "iotv/coyote": {
+      "state": "approved",
+      "sha256": "dd8fefdee8a817c0ac89f44f8212cd37fc003d53e6d5a8b4cadc9d04f33d722d",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "iotv/olive": {
+      "state": "approved",
+      "sha256": "fc1b9fb41a2c2eb0307a5f905991b6cd1ac79aae772a0f35ac03355cab433cfb",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "iotv/black": {
+      "state": "approved",
+      "sha256": "01c46815ce0495efaac559bb77b13e44006fa8dfcc2e4dd365b9c61d6ee5793d",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "iotv/multicam": {
+      "state": "approved",
+      "sha256": "361fb77a1d4e47bd77eb37f801571c672832b07842dd1f5a6a7a3a13112121c3",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "iotv/emr_summer": {
+      "state": "approved",
+      "sha256": "ff95d09c709b3d17501c4f245bba2c4a62b136c3491edf340164e18320d28e97",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "gladiator_s/coyote": {
+      "state": "approved",
+      "sha256": "a53ca1e8de5c2b5400a5cbf2e67d8113c0e12bf817d8cb3015ffbdc9c46ee665",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "gladiator_s/olive": {
+      "state": "approved",
+      "sha256": "8f2a54a9d33d3c77326a3f37f56226724a96586a77b743f1c4c9fa53c2ac3a33",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "gladiator_s/black": {
+      "state": "approved",
+      "sha256": "0af601735b67a8fe92cc58a3ea798c8782ab321ead96824070d1a4b3cf875244",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "gladiator_s/multicam": {
+      "state": "approved",
+      "sha256": "6b76936cfa472d925f71e90f9af1aa7beed11b6a18337e51fb8e2d768d21bac9",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "gladiator_s/emr_summer": {
+      "state": "approved",
+      "sha256": "341c89ea859ad67e4788d31e464697917d6ff08a8480b9aecf7f232881fc9525",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "thor/coyote": {
+      "state": "approved",
+      "sha256": "747d3fa2702ee075588869698205d5966a5c4d2cf4775cebd952dcb62781449c",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "thor/olive": {
+      "state": "approved",
+      "sha256": "f2424072a4129a0f851f18c15be1def7bbcdafeaf541ffadb70549f25c52e9c1",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "thor/black": {
+      "state": "approved",
+      "sha256": "18bc7f126e973a27acf56f59f99f8d21d5c1aba44a05f1671ae43c923fdb4fd3",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "thor/multicam": {
+      "state": "approved",
+      "sha256": "7197a9385ddae4efcc8310a6904bf6c0ac79c7d9049682649ecf63a7feba0c53",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    },
+    "thor/emr_summer": {
+      "state": "approved",
+      "sha256": "2ea82c7bc842fad76b1157d5417d9381929c80652ecd840b4752326b50b8edf8",
+      "date": "2026-09-20",
+      "note": "approved by author"
+    }
+  }
+}

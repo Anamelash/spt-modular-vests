@@ -1,0 +1,1009 @@
+// Modular Vests line-up.
+//
+// Every id in the database is derived from the "key" fields below
+// (SHA-1 of "modularvests:<kind>:<key>..."). Renaming a key changes the id and
+// orphans every copy of that item in existing profiles - never rename a shipped key.
+//
+// The whole line-up is sold by the mod's own trader (trader/trader.jsonc). A rig or a pouch
+// may set "loyaltyLevel" (1-4, default 1): the trader level it is sold from.
+//
+// Languages: the game ships en, ru, ch, cz, es, es-mx, fr, ge, hu, it, jp, kr, pl, po, ro, sk, tu.
+// A language without its own text falls back to "en", so only the ones written here need entries.
+// Short names reuse the donor's own short name from the game's locales plus an " M" marker, so
+// that the abbreviations are the ones the player already reads on the vanilla item.
+{
+  // Name of a pouch cell, over an empty cell in the inspect window ("en" for other languages).
+  // The game's own cell labels are upper case and short: MOD_MAGAZINE reads "MAGAZINE" / "МАГАЗИН".
+  "pouchSlotName": {
+    "en": "POUCH",
+    "ru": "ПОДСУМОК",
+    "ch": "附包",
+    "es": "BOLSA",
+    "po": "BOLSA",
+    "ge": "TASCHE",
+    "fr": "POCHE",
+    "jp": "ポーチ",
+    "pl": "KIESZEŃ",
+    "tu": "ÇANTA",
+    "kr": "파우치"
+  },
+
+  // Colour names, written once for the whole line-up: every pouch offers the same five.
+  // The keys are part of the pouch ids and of the bundle names - never rename one.
+  // Camouflage names stay as the game writes them: Latin everywhere it keeps them Latin.
+  "colors": {
+    "coyote": {
+      "en": "Coyote",
+      "ru": "Coyote",
+      "ch": "灰褐色",
+      "es": "Coyote",
+      "po": "Coyote",
+      "ge": "Coyote",
+      "fr": "Coyote",
+      "jp": "コヨーテ",
+      "pl": "Coyote",
+      "tu": "Coyote",
+      "kr": "Coyote"
+    },
+    "olive": {
+      "en": "Olive",
+      "ru": "Олива",
+      "ch": "橄榄绿",
+      "es": "Verde Oliva",
+      "po": "Verde Oliva",
+      "ge": "Oliv",
+      "fr": "Olive",
+      "jp": "オリーブ",
+      "pl": "Oliwkowy",
+      "tu": "Zeytin Yeşili",
+      "kr": "Olive"
+    },
+    "multicam": {
+      "en": "MultiCam",
+      "ru": "MultiCam",
+      "ch": "复合迷彩",
+      "es": "MultiCam",
+      "po": "MultiCam",
+      "ge": "MultiCam",
+      "fr": "MultiCam",
+      "jp": "マルチカム",
+      "pl": "MultiCam",
+      "tu": "MultiCam",
+      "kr": "MultiCam"
+    },
+    "black": {
+      "en": "Black",
+      "ru": "Черный",
+      "ch": "黑色",
+      "es": "Negro",
+      "po": "Preto",
+      "ge": "Schwarz",
+      "fr": "Noir",
+      "jp": "ブラック",
+      "pl": "Czarny",
+      "tu": "Siyah",
+      "kr": "검은색"
+    },
+    // The summer EMR pattern; the game calls it "Флора Цифра" in Russian and "Digital Flora"
+    // in most other languages.
+    "emr_summer": {
+      "en": "EMR",
+      "ru": "Флора Цифра",
+      "ch": "数码丛林迷彩",
+      "es": "EMR",
+      "po": "Digital Flora",
+      "ge": "Digitalflora",
+      "fr": "Digital Flora",
+      "jp": "デジタルフローラ",
+      "pl": "Digital Flora",
+      "tu": "EMR",
+      "kr": "Digital Flora"
+    }
+  },
+
+  // The description every rig gets. What the rigs differ in - model, protection, weight - the
+  // name and the stats already say; what they all share is where the storage comes from, and
+  // that is the one thing a player cannot work out by looking at the item.
+  "vestDescription": {
+    "en": "An armor carrier with bare MOLLE webbing and no pockets of its own. Its storage is whatever pouches are mounted on it in the MODDING screen.",
+    "ru": "Бронированный носитель с голой системой MOLLE и без собственных карманов. Весь объём дают подсумки, навешенные на него в окне модификации.",
+    "ch": "带裸露 MOLLE 织带的防弹载具，本身没有任何口袋。容量全部来自在改装界面挂载的附包。",
+    "es": "Un portaplacas con cinchas MOLLE desnudas y sin bolsillos propios. Su capacidad es la de las bolsas que se le monten en la pantalla MODIFICAR.",
+    "po": "Um colete com fitas MOLLE nuas e sem bolsos próprios. Sua capacidade vem das bolsas montadas nele na tela de MODIFICAÇÃO.",
+    "ge": "Ein Trägersystem mit blankem MOLLE-Gewebe und ohne eigene Taschen. Der Stauraum sind allein die Taschen, die im MODIFIKATION-Menü angebracht werden.",
+    "fr": "Un porte-plaques à sangles MOLLE nues, sans poches propres. Sa capacité se résume aux poches montées dessus depuis l'écran CUSTOMISATION.",
+    "jp": "MOLLE ウェビングがむき出しで、ポケットを一切持たないキャリア。収納は改造画面で装着したポーチがすべて。",
+    "pl": "Nośnik płyt z gołymi taśmami MOLLE, bez własnych kieszeni. Cała pojemność pochodzi z kieszeni zamontowanych w ekranie MODYFIKACJA.",
+    "tu": "Çıplak MOLLE dokumalı, kendine ait hiçbir cebi olmayan bir taşıyıcı. Tüm hacmi ÖZELLEŞTİRME ekranından takılan çantalardan gelir.",
+    "kr": "MOLLE 웨빙만 있고 자체 주머니가 없는 캐리어. 수납은 개조 화면에서 장착한 파우치가 전부다."
+  },
+
+  // The description every pouch gets. The name says what it is, the grid says how much it
+  // holds; the only thing left to say is that it goes on a modular rig rather than in a bag.
+  "pouchDescription": {
+    "en": "A MOLLE pouch. Mounts on a modular rig in the MODDING screen.",
+    "ru": "Подсумок MOLLE. Навешивается на модульную разгрузку в окне модификации.",
+    "ch": "MOLLE 附包。在改装界面挂载到模块化背心上。",
+    "es": "Bolsa MOLLE. Se monta en un chaleco modular desde la pantalla MODIFICAR.",
+    "po": "Bolsa MOLLE. Montada em um colete modular na tela de MODIFICAÇÃO.",
+    "ge": "MOLLE-Tasche. Wird im MODIFIKATION-Menü an einer modularen Weste angebracht.",
+    "fr": "Poche MOLLE. Se monte sur un gilet modulaire depuis l'écran CUSTOMISATION.",
+    "jp": "MOLLE ポーチ。改造画面でモジュラーキャリアに装着する。",
+    "pl": "Kieszeń MOLLE. Montowana na kamizelce modułowej w ekranie MODYFIKACJA.",
+    "tu": "MOLLE çantası. ÖZELLEŞTİRME ekranından modüler yeleğe takılır.",
+    "kr": "MOLLE 파우치. 개조 화면에서 모듈형 캐리어에 장착한다."
+  },
+
+  // Ten carriers, each in the five colours above: one entry per carrier, one rig per colour
+  // ("variants"). A colour that took over a key the mod already shipped names it in "itemKey" -
+  // that item keeps its id, its cells and its preset, and only its look changes. The recoloured
+  // bundles are built from the donors' own bundles by build/build-vest-bundles.ps1.
+  "vests": [
+    // 6B45 from WTT-ContentBackport: plates only, no grids, armorClass 0
+    {
+      "key": "6b45",
+      "cloneTpl": "68948a95d8f2b85fb705e2a6",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/6b45_{variant}.bundle",
+      "name": "modularvests_vest_6b45_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 95000,
+      "locales": {
+        "en": { "name": "6B45 modular rig ({color})", "shortName": "6B45 M" },
+        "ru": { "name": "Модульная разгрузка 6Б45 ({color})", "shortName": "6Б45 М" },
+        "ch": { "name": "6B45 模块化防弹背心 ({color})", "shortName": "6B45 M" },
+        "es": { "name": "Chaleco modular 6B45 ({color})", "shortName": "6B45 M" },
+        "po": { "name": "Colete modular 6B45 ({color})", "shortName": "6B45 M" },
+        "ge": { "name": "6B45 modulare Schutzweste ({color})", "shortName": "6B45 M" },
+        "fr": { "name": "Gilet modulaire 6B45 ({color})", "shortName": "6B45 M" },
+        "jp": { "name": "6B45 モジュラーキャリア ({color})", "shortName": "6B45 M" },
+        "pl": { "name": "Kamizelka modułowa 6B45 ({color})", "shortName": "6B45 M" },
+        "tu": { "name": "6B45 modüler yelek ({color})", "shortName": "6B45 M" },
+        "kr": { "name": "6B45 모듈형 캐리어 ({color})", "shortName": "6B45 M" }
+      },
+      "clusters": 4,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true,
+        "Width": 3,
+        "Height": 4,
+        "Weight": 3.65
+      },
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer", "itemKey": "6b45" }
+      ]
+    },
+    // IOTV Gen4, three kits of one carrier: the same torso, other shoulder and groin protection
+    // (Full Protection: both; Assault: shoulders; High Mobility: groin). Their pouch cells share
+    // one layout (bones.json), and all three take their colours from the one iotv recolour kit.
+    {
+      "key": "iotv_fp",
+      "model": "iotv",
+      "cloneTpl": "5b44cd8b86f774503d30cba2",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/iotv_fp_{variant}.bundle",
+      "name": "modularvests_vest_iotv_fp_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 140000,
+      "locales": {
+        "en": { "name": "IOTV Gen4 modular rig (Full Protection Kit, {color})", "shortName": "Gen4 Full M" },
+        "ru": { "name": "Модульная разгрузка IOTV Gen4 (Полная Защита, {color})", "shortName": "Gen4 Полн. М" },
+        "ch": { "name": "IOTV Gen4 模块化防弹背心（全面防护型）", "shortName": "Gen4全防护 M" },
+        "es": { "name": "Chaleco modular IOTV Gen4 (Protección Completa, {color})", "shortName": "Gen4 Completa M" },
+        "po": { "name": "Colete modular IOTV Gen4 (Proteção completa, {color})", "shortName": "Gen4 Completo M" },
+        "ge": { "name": "IOTV Gen4 modulare Schutzweste (Vollschutz-Kit, {color})", "shortName": "Gen4 Voll M" },
+        "fr": { "name": "Gilet modulaire IOTV Gen4 (protection intégrale, {color})", "shortName": "Gen4 Intégrale M" },
+        "jp": { "name": "IOTV Gen4 モジュラーキャリア（フルプロテクションバージョン）", "shortName": "Gen4 Full M" },
+        "pl": { "name": "Kamizelka modułowa IOTV Gen4 (pełna ochrona, {color})", "shortName": "Gen4 Pełny M" },
+        "tu": { "name": "IOTV Gen4 modüler yelek (tam koruma, {color})", "shortName": "Gen4 Full M" },
+        "kr": { "name": "IOTV Gen4 모듈형 캐리어 (완전형 키트, {color})", "shortName": "Gen4 완전형 M" }
+      },
+      "clusters": 4,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true
+      },
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam", "itemKey": "iotv_fp" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ]
+    },
+    {
+      "key": "iotv_assault",
+      "model": "iotv",
+      "cloneTpl": "5b44cf1486f77431723e3d05",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/iotv_assault_{variant}.bundle",
+      "name": "modularvests_vest_iotv_assault_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 125000,
+      "locales": {
+        "en": { "name": "IOTV Gen4 modular rig (Assault Kit, {color})", "shortName": "Gen4 Assault M" },
+        "ru": { "name": "Модульная разгрузка IOTV Gen4 (Штурмовой, {color})", "shortName": "Gen4 Штурм. М" },
+        "ch": { "name": "IOTV Gen4 模块化防弹背心（突击型）", "shortName": "Gen4突击型 M" },
+        "es": { "name": "Chaleco modular IOTV Gen4 (Kit de Asalto, {color})", "shortName": "Gen4 Asalto M" },
+        "po": { "name": "Colete modular IOTV Gen4 (conjunto de assalto, {color})", "shortName": "Gen4 Assalto M" },
+        "ge": { "name": "IOTV Gen4 modulare Schutzweste (Assault-Kit, {color})", "shortName": "Gen4 Assault M" },
+        "fr": { "name": "Gilet modulaire IOTV Gen4 (kit assaut, {color})", "shortName": "Gen4 Assaut M" },
+        "jp": { "name": "IOTV Gen4 モジュラーキャリア（アサルトバージョン）", "shortName": "Gen4 Assault M" },
+        "pl": { "name": "Kamizelka modułowa IOTV Gen4 (szturmowy, {color})", "shortName": "Gen4 Szturm M" },
+        "tu": { "name": "IOTV Gen4 modüler yelek (saldırı kiti, {color})", "shortName": "Gen4 Saldırı M" },
+        "kr": { "name": "IOTV Gen4 모듈형 캐리어 (돌격형 키트, {color})", "shortName": "Gen4 돌격형 M" }
+      },
+      "clusters": 4,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true
+      },
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam", "itemKey": "iotv_assault" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ]
+    },
+    {
+      "key": "iotv_hm",
+      "model": "iotv",
+      "cloneTpl": "5b44d0de86f774503d30cba8",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/iotv_hm_{variant}.bundle",
+      "name": "modularvests_vest_iotv_hm_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 120000,
+      "locales": {
+        "en": { "name": "IOTV Gen4 modular rig (High Mobility Kit, {color})", "shortName": "Gen4 HMK M" },
+        "ru": { "name": "Модульная разгрузка IOTV Gen4 (Мобильный, {color})", "shortName": "Gen4 Моб. М" },
+        "ch": { "name": "IOTV Gen4 模块化防弹背心（高机动型）", "shortName": "Gen4高机动型 M" },
+        "es": { "name": "Chaleco modular IOTV Gen4 (Kit de Alta Movilidad, {color})", "shortName": "Gen4 HMK M" },
+        "po": { "name": "Colete modular IOTV Gen4 (conjunto de alta mobilidade, {color})", "shortName": "Gen4 HMK M" },
+        "ge": { "name": "IOTV Gen4 modulare Schutzweste (Hochmobilitäts-Kit, {color})", "shortName": "Gen4 HMV M" },
+        "fr": { "name": "Gilet modulaire IOTV Gen4 (kit haute mobilité, {color})", "shortName": "Gen4 HMK M" },
+        "jp": { "name": "IOTV Gen4 モジュラーキャリア（ハイモビリティバージョン）", "shortName": "Gen4 HMK M" },
+        "pl": { "name": "Kamizelka modułowa IOTV Gen4 (wysoka mobilność, {color})", "shortName": "Gen4 HMK M" },
+        "tu": { "name": "IOTV Gen4 modüler yelek (yüksek hareketlilik, {color})", "shortName": "Gen4 HMK M" },
+        "kr": { "name": "IOTV Gen4 모듈형 캐리어 (고기동형 키트, {color})", "shortName": "Gen4 고기동형 M" }
+      },
+      "clusters": 4,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true
+      },
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam", "itemKey": "iotv_hm" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ]
+    },
+    // FORT Gladiator-S from WTT-ContentBackport, the plain carrier: its other versions are rigs with pouches sewn on
+    {
+      "key": "gladiator_s",
+      "cloneTpl": "69d3708c8d8009073d0a9df4",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/gladiator_s_{variant}.bundle",
+      "name": "modularvests_vest_gladiator_s_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 110000,
+      "locales": {
+        "en": { "name": "FORT Gladiator-S modular rig ({color})", "shortName": "Gladiator-S M" },
+        "ru": { "name": "Модульная разгрузка FORT Gladiator-S ({color})", "shortName": "Gladiator-S М" },
+        "ch": { "name": "FORT Gladiator-S 模块化防弹背心 ({color})", "shortName": "Gladiator-S M" },
+        "es": { "name": "Chaleco modular FORT Gladiator-S ({color})", "shortName": "Gladiator-S M" },
+        "po": { "name": "Colete modular FORT Gladiator-S ({color})", "shortName": "Gladiator-S M" },
+        "ge": { "name": "FORT Gladiator-S modulare Schutzweste ({color})", "shortName": "Gladiator-S M" },
+        "fr": { "name": "Gilet modulaire FORT Gladiator-S ({color})", "shortName": "Gladiator-S M" },
+        "jp": { "name": "FORT Gladiator-S モジュラーキャリア ({color})", "shortName": "Gladiator-S M" },
+        "pl": { "name": "Kamizelka modułowa FORT Gladiator-S ({color})", "shortName": "Gladiator-S M" },
+        "tu": { "name": "FORT Gladiator-S modüler yelek ({color})", "shortName": "Gladiator-S M" },
+        "kr": { "name": "FORT Gladiator-S 모듈형 캐리어 ({color})", "shortName": "Gladiator-S M" }
+      },
+      "clusters": 4,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true
+      },
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive", "itemKey": "gladiator_s" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ]
+    },
+    // 6B43 Zabralo-Sh: its groin flap covers the lower chest, so its chest clusters sit higher than the 6B45's
+    {
+      "key": "6b43",
+      "cloneTpl": "545cdb794bdc2d3a198b456a",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/6b43_{variant}.bundle",
+      "name": "modularvests_vest_6b43_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 150000,
+      "locales": {
+        "en": { "name": "6B43 Zabralo-Sh modular rig ({color})", "shortName": "6B43 M" },
+        "ru": { "name": "Модульная разгрузка 6Б43 «Забрало-Ш» ({color})", "shortName": "6Б43 М" },
+        "ch": { "name": "6B43 屏障-Sh 模块化防弹背心 ({color})", "shortName": "6B43 M" },
+        "es": { "name": "Chaleco modular 6B43 Zabralo-Sh ({color})", "shortName": "6B43 M" },
+        "po": { "name": "Colete modular 6B43 Zabralo-Sh ({color})", "shortName": "6B43 M" },
+        "ge": { "name": "6B43 Zabralo-Sh modulare Schutzweste ({color})", "shortName": "6B43 M" },
+        "fr": { "name": "Gilet modulaire 6B43 Zabralo-Sh ({color})", "shortName": "6B43 M" },
+        "jp": { "name": "6B43 Zabralo-Sh モジュラーキャリア ({color})", "shortName": "6B43 M" },
+        "pl": { "name": "Kamizelka modułowa 6B43 Zabrało-Sz ({color})", "shortName": "6B43 M" },
+        "tu": { "name": "6B43 Zabralo-Sh modüler yelek ({color})", "shortName": "6B43 M" },
+        "kr": { "name": "6B43 Zabralo-Sh 모듈형 캐리어 ({color})", "shortName": "6B43 M" }
+      },
+      "clusters": 4,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true
+      },
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer", "itemKey": "6b43" }
+      ]
+    },
+    // HighCom Trooper TFO and Interceptor OTV have no cummerbund: two chest clusters (mod_pouch_1..8)
+    {
+      "key": "trooper",
+      "cloneTpl": "5c0e655586f774045612eeb2",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/trooper_{variant}.bundle",
+      "name": "modularvests_vest_trooper_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 85000,
+      "locales": {
+        "en": { "name": "HighCom Trooper TFO modular rig ({color})", "shortName": "Trooper M" },
+        "ru": { "name": "Модульная разгрузка HighCom Trooper TFO ({color})", "shortName": "Trooper М" },
+        "ch": { "name": "HighCom Trooper TFO 模块化防弹背心（复合迷彩） ({color})", "shortName": "Trooper M" },
+        "es": { "name": "Chaleco modular HighCom Trooper TFO ({color})", "shortName": "Trooper M" },
+        "po": { "name": "Colete modular HighCom Trooper TFO ({color})", "shortName": "Trooper M" },
+        "ge": { "name": "HighCom Trooper TFO modulare Schutzweste ({color})", "shortName": "Trooper M" },
+        "fr": { "name": "Gilet modulaire HighCom Trooper TFO ({color})", "shortName": "Trooper M" },
+        "jp": { "name": "HighCom Trooper TFO モジュラーキャリア（マルチカム） ({color})", "shortName": "Trooper M" },
+        "pl": { "name": "Kamizelka modułowa HighCom Trooper TFO ({color})", "shortName": "Trooper M" },
+        "tu": { "name": "HighCom Trooper TFO modüler yelek ({color})", "shortName": "Trooper M" },
+        "kr": { "name": "HighCom Trooper TFO 모듈형 캐리어 ({color})", "shortName": "Trooper M" }
+      },
+      "clusters": 2,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true
+      },
+      "variants": [
+        { "key": "coyote", "itemKey": "trooper_coyote" },
+        { "key": "olive" },
+        { "key": "multicam", "itemKey": "trooper_multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ]
+    },
+    {
+      "key": "otv",
+      "cloneTpl": "64abd93857958b4249003418",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/otv_{variant}.bundle",
+      "name": "modularvests_vest_otv_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 70000,
+      "locales": {
+        "en": { "name": "Interceptor OTV modular rig ({color})", "shortName": "OTV M" },
+        "ru": { "name": "Модульная разгрузка Interceptor OTV ({color})", "shortName": "OTV М" },
+        "ch": { "name": "Interceptor OTV 模块化防弹背心（通用迷彩） ({color})", "shortName": "OTV M" },
+        "es": { "name": "Chaleco modular Interceptor OTV ({color})", "shortName": "OTV M" },
+        "po": { "name": "Colete modular Interceptor OTV ({color})", "shortName": "OTV M" },
+        "ge": { "name": "Interceptor OTV modulare Schutzweste ({color})", "shortName": "OTV M" },
+        "fr": { "name": "Gilet modulaire Interceptor OTV ({color})", "shortName": "OTV M" },
+        "jp": { "name": "Interceptor OTV モジュラーキャリア（UCP） ({color})", "shortName": "OTV M" },
+        "pl": { "name": "Kamizelka modułowa Interceptor OTV ({color})", "shortName": "OTV M" },
+        "tu": { "name": "Interceptor OTV modüler yelek ({color})", "shortName": "OTV M" },
+        "kr": { "name": "Interceptor OTV 모듈형 캐리어 ({color})", "shortName": "OTV M" }
+      },
+      "clusters": 2,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true
+      },
+      "variants": [
+        { "key": "coyote", "itemKey": "otv_3c" },
+        { "key": "olive", "itemKey": "otv_woodland" },
+        { "key": "multicam" },
+        { "key": "black", "itemKey": "otv_ucp" },
+        { "key": "emr_summer", "itemKey": "otv_cce" }
+      ]
+    },
+    // MF-UNTAR: soft armor only, no plates (and no chest plate to hang the cells from)
+    {
+      "key": "untar",
+      "cloneTpl": "5ab8e4ed86f7742d8e50c7fa",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/untar_{variant}.bundle",
+      "name": "modularvests_vest_untar_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 60000,
+      "locales": {
+        "en": { "name": "MF-UNTAR modular rig ({color})", "shortName": "MF-UN M" },
+        "ru": { "name": "Модульная разгрузка MF-UNTAR ({color})", "shortName": "MF-UN М" },
+        "ch": { "name": "MF-UNTAR 模块化防弹背心 ({color})", "shortName": "MF-UN M" },
+        "es": { "name": "Chaleco modular MF-UNTAR ({color})", "shortName": "MF-UN M" },
+        "po": { "name": "Colete modular MF-UNTAR ({color})", "shortName": "MF-ONU M" },
+        "ge": { "name": "MF-UNTAR modulare Schutzweste ({color})", "shortName": "MF-UN M" },
+        "fr": { "name": "Gilet modulaire MF-UNTAR ({color})", "shortName": "MF-UN M" },
+        "jp": { "name": "MF-UNTAR モジュラーキャリア ({color})", "shortName": "MF-UN M" },
+        "pl": { "name": "Kamizelka modułowa MF-UNTAR ({color})", "shortName": "MF-UN M" },
+        "tu": { "name": "MF-UNTAR modüler yelek ({color})", "shortName": "MF-UN M" },
+        "kr": { "name": "MF-UNTAR 모듈형 캐리어 ({color})", "shortName": "MF-UN M" }
+      },
+      "clusters": 4,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true
+      },
+      "variants": [
+        { "key": "coyote", "itemKey": "untar_dbdu" },
+        { "key": "olive", "itemKey": "untar_wineleaf" },
+        { "key": "multicam" },
+        { "key": "black", "itemKey": "untar" },
+        { "key": "emr_summer", "itemKey": "untar_marpat" }
+      ]
+    },
+    {
+      "key": "thor",
+      "cloneTpl": "60a283193cb70855c43a381d",
+      "parent": "5448e5284bdc2dcb718b4567",
+      "prefab": "modularvests/vests/thor_{variant}.bundle",
+      "name": "modularvests_vest_thor_{variant}",
+      "handbookParent": "5b5f6f8786f77447ed563642",
+      "price": 160000,
+      "locales": {
+        "en": { "name": "NFM THOR Integrated Carrier modular rig ({color})", "shortName": "THOR IC M" },
+        "ru": { "name": "Модульная разгрузка NFM THOR Integrated Carrier ({color})", "shortName": "THOR IC М" },
+        "ch": { "name": "NFM THOR Integrated Carrier 模块化防弹背心 ({color})", "shortName": "THOR IC M" },
+        "es": { "name": "Chaleco modular NFM THOR Integrated Carrier ({color})", "shortName": "THOR IC M" },
+        "po": { "name": "Colete modular NFM THOR Integrated Carrier ({color})", "shortName": "THOR IC M" },
+        "ge": { "name": "NFM THOR Integrated Carrier modulare Schutzweste ({color})", "shortName": "THOR IC M" },
+        "fr": { "name": "Gilet modulaire NFM THOR Integrated Carrier ({color})", "shortName": "THOR IC M" },
+        "jp": { "name": "NFM THOR Integrated Carrier モジュラーキャリア ({color})", "shortName": "THOR IC M" },
+        "pl": { "name": "Kamizelka modułowa NFM THOR Integrated Carrier ({color})", "shortName": "THOR IC M" },
+        "tu": { "name": "NFM THOR Integrated Carrier modüler yelek ({color})", "shortName": "THOR IC M" },
+        "kr": { "name": "NFM THOR Integrated Carrier 모듈형 캐리어 ({color})", "shortName": "THOR IC M" }
+      },
+      "clusters": 4,
+      "overrides": {
+        "RigLayoutName": "",
+        "BlocksArmorVest": true
+      },
+      "variants": [
+        { "key": "coyote", "itemKey": "thor" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black", "itemKey": "thor_masgray" },
+        { "key": "emr_summer" }
+      ]
+    }
+  ],
+
+  "pouches": [
+    {
+      "key": "magpouch07",
+      "name": "modularvests_pouch_magpouch07_{variant}",
+      // own model, one bundle per colour (build/build-bundles.ps1)
+      "prefab": "modularvests/magpouch_07_{variant}.bundle",
+      "rcid": "magpouch_07_{variant}",
+      // colour text comes from "colors" above
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "1x2",
+      "botUse": "rifleMag",
+      "magSlots": 2,
+      "width": 1,
+      "height": 2,
+      "grids": [{ "name": "main", "width": 1, "height": 2 }, { "name": "second", "width": 1, "height": 2 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.25,
+      "price": 11000,
+      "locales": {
+        "en": { "name": "Double magazine pouch ({color})", "shortName": "Mag x2" },
+        "ru": { "name": "Подсумок магазинный сдвоенный ({color})", "shortName": "Маг. x2" },
+        "ch": { "name": "双联弹匣附包（{color}）", "shortName": "弹匣x2" },
+        "es": { "name": "Bolsa doble para cargadores ({color})", "shortName": "Carg. x2" },
+        "po": { "name": "Bolsa dupla para carregadores ({color})", "shortName": "Carreg. x2" },
+        "ge": { "name": "Doppelte Magazintasche ({color})", "shortName": "Mag. x2" },
+        "fr": { "name": "Poche double pour chargeurs ({color})", "shortName": "Charg. x2" },
+        "jp": { "name": "ダブルマガジンポーチ（{color}）", "shortName": "マガジンx2" },
+        "pl": { "name": "Podwójna ładownica na magazynki ({color})", "shortName": "Mag. x2" },
+        "tu": { "name": "Çift şarjör çantası ({color})", "shortName": "Şarjör x2" },
+        "kr": { "name": "이중 탄창 파우치 ({color})", "shortName": "탄창 x2" }
+      }
+    },
+    {
+      "key": "magpouch02",
+      "name": "modularvests_pouch_magpouch02_{variant}",
+      "prefab": "modularvests/magpouch_02_opentop_{variant}.bundle",
+      "rcid": "magpouch_02_opentop_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "1x2",
+      "botUse": "rifleMag",
+      "magSlots": 1,
+      "width": 1,
+      "height": 2,
+      "grids": [{ "name": "main", "width": 1, "height": 2 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.18,
+      "price": 8000,
+      "locales": {
+        "en": { "name": "Open-top magazine pouch ({color})", "shortName": "Mag open" },
+        "ru": { "name": "Подсумок магазинный открытый ({color})", "shortName": "Маг. откр." },
+        "ch": { "name": "开顶弹匣附包（{color}）", "shortName": "弹匣开顶" },
+        "es": { "name": "Bolsa abierta para cargadores ({color})", "shortName": "Carg. ab." },
+        "po": { "name": "Bolsa aberta para carregadores ({color})", "shortName": "Carreg. ab." },
+        "ge": { "name": "Offene Magazintasche ({color})", "shortName": "Mag. offen" },
+        "fr": { "name": "Poche ouverte pour chargeur ({color})", "shortName": "Charg. ouv." },
+        "jp": { "name": "オープントップマガジンポーチ（{color}）", "shortName": "マガジン開放" },
+        "pl": { "name": "Otwarta ładownica na magazynek ({color})", "shortName": "Mag. otw." },
+        "tu": { "name": "Açık uçlu şarjör çantası ({color})", "shortName": "Şarjör açık" },
+        "kr": { "name": "개방형 탄창 파우치 ({color})", "shortName": "개방 탄창" }
+      }
+    },
+    {
+      "key": "magpouch03",
+      "name": "modularvests_pouch_magpouch03_{variant}",
+      "prefab": "modularvests/magpouch_03_flapper_close_{variant}.bundle",
+      "rcid": "magpouch_03_flapper_close_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "1x2",
+      "botUse": "rifleMag",
+      "magSlots": 1,
+      "width": 1,
+      "height": 2,
+      "grids": [{ "name": "main", "width": 1, "height": 2 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.18,
+      "price": 8000,
+      "locales": {
+        "en": { "name": "Magazine pouch ({color})", "shortName": "Mag" },
+        "ru": { "name": "Подсумок магазинный ({color})", "shortName": "Маг." },
+        "ch": { "name": "弹匣附包（{color}）", "shortName": "弹匣" },
+        "es": { "name": "Bolsa para cargador ({color})", "shortName": "Carg." },
+        "po": { "name": "Bolsa para carregador ({color})", "shortName": "Carreg." },
+        "ge": { "name": "Magazintasche ({color})", "shortName": "Mag." },
+        "fr": { "name": "Poche pour chargeur ({color})", "shortName": "Charg." },
+        "jp": { "name": "マガジンポーチ（{color}）", "shortName": "マガジン" },
+        "pl": { "name": "Ładownica na magazynek ({color})", "shortName": "Mag." },
+        "tu": { "name": "Şarjör çantası ({color})", "shortName": "Şarjör" },
+        "kr": { "name": "탄창 파우치 ({color})", "shortName": "탄창" }
+      }
+    },
+    {
+      "key": "gadget01",
+      "name": "modularvests_pouch_gadget01_{variant}",
+      // own model, one bundle per colour (build/build-bundles.ps1)
+      "prefab": "modularvests/pouch_01_gadget_{variant}.bundle",
+      "rcid": "pouch_01_gadget_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      // two cells tall; "main" is the grid it shipped with (items in it stay where they lie)
+      "footprint": "1x2",
+      "width": 1,
+      "height": 2,
+      "grids": [{ "name": "main", "width": 1, "height": 1 }, { "name": "second", "width": 1, "height": 1 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.12,
+      "price": 5000,
+      "locales": {
+        "en": { "name": "Gadget pouch ({color})", "shortName": "Gadget" },
+        "ru": { "name": "Подсумок для гаджетов ({color})", "shortName": "Гаджет." },
+        "ch": { "name": "装备附包（{color}）", "shortName": "装备包" },
+        "es": { "name": "Bolsa para accesorios ({color})", "shortName": "Accesorios" },
+        "po": { "name": "Bolsa para acessórios ({color})", "shortName": "Acessórios" },
+        "ge": { "name": "Gadget-Tasche ({color})", "shortName": "Gadget" },
+        "fr": { "name": "Poche à gadgets ({color})", "shortName": "Gadget" },
+        "jp": { "name": "ガジェットポーチ（{color}）", "shortName": "ガジェット" },
+        "pl": { "name": "Kieszeń na gadżety ({color})", "shortName": "Gadżety" },
+        "tu": { "name": "Gereç çantası ({color})", "shortName": "Gereç" },
+        "kr": { "name": "장비 파우치 ({color})", "shortName": "장비" }
+      }
+    },
+    {
+      "key": "fraggrenade",
+      "name": "modularvests_pouch_fraggrenade_{variant}",
+      // own model, one bundle per colour (build/build-bundles.ps1)
+      "prefab": "modularvests/frag_grenade_pouch_{variant}.bundle",
+      "rcid": "frag_grenade_pouch_{variant}",
+      "variants": [
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "1x1",
+      "width": 1,
+      "height": 1,
+      "grids": [{ "name": "main", "width": 1, "height": 1 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.12,
+      "price": 5000,
+      "locales": {
+        "en": { "name": "Warrior grenade pouch ({color})", "shortName": "Warrior" },
+        "ru": { "name": "Подсумок гранатный Warrior ({color})", "shortName": "Warrior" },
+        "ch": { "name": "Warrior 手榴弹附包（{color}）", "shortName": "Warrior" },
+        "es": { "name": "Bolsa Warrior para granada ({color})", "shortName": "Warrior" },
+        "po": { "name": "Bolsa Warrior para granada ({color})", "shortName": "Warrior" },
+        "ge": { "name": "Warrior Granatentasche ({color})", "shortName": "Warrior" },
+        "fr": { "name": "Poche à grenade Warrior ({color})", "shortName": "Warrior" },
+        "jp": { "name": "Warrior グレネードポーチ（{color}）", "shortName": "Warrior" },
+        "pl": { "name": "Ładownica na granat Warrior ({color})", "shortName": "Warrior" },
+        "tu": { "name": "Warrior el bombası çantası ({color})", "shortName": "Warrior" },
+        "kr": { "name": "Warrior 수류탄 파우치 ({color})", "shortName": "Warrior" }
+      }
+    },
+    {
+      "key": "admin03",
+      "name": "modularvests_pouch_admin03_{variant}",
+      // own model, one bundle per colour (build/build-bundles.ps1)
+      "prefab": "modularvests/pouch_03_admin_{variant}.bundle",
+      "rcid": "pouch_03_admin_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "2x1",
+      "width": 2,
+      "height": 1,
+      "grids": [{ "name": "main", "width": 2, "height": 1 }, { "name": "second", "width": 2, "height": 1 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.22,
+      "price": 9000,
+      "locales": {
+        "en": { "name": "Admin pouch ({color})", "shortName": "Admin" },
+        "ru": { "name": "Подсумок административный ({color})", "shortName": "Админ." },
+        "ch": { "name": "文件附包（{color}）", "shortName": "文件包" },
+        "es": { "name": "Bolsa administrativa ({color})", "shortName": "Admin." },
+        "po": { "name": "Bolsa administrativa ({color})", "shortName": "Admin." },
+        "ge": { "name": "Admin-Tasche ({color})", "shortName": "Admin" },
+        "fr": { "name": "Poche administrative ({color})", "shortName": "Admin" },
+        "jp": { "name": "アドミンポーチ（{color}）", "shortName": "アドミン" },
+        "pl": { "name": "Kieszeń administracyjna ({color})", "shortName": "Admin." },
+        "tu": { "name": "İdari çanta ({color})", "shortName": "İdari" },
+        "kr": { "name": "행정 파우치 ({color})", "shortName": "행정" }
+      }
+    },
+    {
+      "key": "survival06",
+      "name": "modularvests_pouch_survival06_{variant}",
+      // own model, one bundle per colour (build/build-bundles.ps1)
+      "prefab": "modularvests/pouch_06_survival_{variant}.bundle",
+      "rcid": "pouch_06_survival_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "2x2",
+      "width": 2,
+      "height": 2,
+      // one 2x3 section (0.2.0 had main 2x2 + second 2x1: "second" is gone, "main" grew)
+      "grids": [{ "name": "main", "width": 2, "height": 3 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.45,
+      "price": 17000,
+      // not "large": it takes the same 2x2 and holds the same six cells as the utility pouch
+      "locales": {
+        "en": { "name": "Cargo pouch ({color})", "shortName": "Cargo" },
+        "ru": { "name": "Подсумок грузовой ({color})", "shortName": "Груз." },
+        "ch": { "name": "货物附包（{color}）", "shortName": "货物包" },
+        "es": { "name": "Bolsa de carga ({color})", "shortName": "Carga" },
+        "po": { "name": "Bolsa de carga ({color})", "shortName": "Carga" },
+        "ge": { "name": "Frachttasche ({color})", "shortName": "Fracht" },
+        "fr": { "name": "Poche cargo ({color})", "shortName": "Cargo" },
+        "jp": { "name": "カーゴポーチ（{color}）", "shortName": "カーゴ" },
+        "pl": { "name": "Kieszeń transportowa ({color})", "shortName": "Transport." },
+        "tu": { "name": "Kargo çantası ({color})", "shortName": "Kargo" },
+        "kr": { "name": "카고 파우치 ({color})", "shortName": "카고" }
+      }
+    },
+    {
+      "key": "smallpouch",
+      "name": "modularvests_pouch_smallpouch_{variant}",
+      "prefab": "modularvests/small_pouch_{variant}.bundle",
+      "rcid": "small_pouch_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "1x1",
+      "width": 1,
+      "height": 1,
+      "grids": [{ "name": "main", "width": 1, "height": 1 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.1,
+      "price": 4000,
+      "locales": {
+        "en": { "name": "Pistol magazine pouch ({color})", "shortName": "Pistol mag" },
+        "ru": { "name": "Подсумок пистолетный магазинный ({color})", "shortName": "Пист. маг." },
+        "ch": { "name": "手枪弹匣附包（{color}）", "shortName": "手枪弹匣" },
+        "es": { "name": "Bolsa para cargador de pistola ({color})", "shortName": "Carg. pist." },
+        "po": { "name": "Bolsa para carregador de pistola ({color})", "shortName": "Carreg. pist." },
+        "ge": { "name": "Pistolenmagazintasche ({color})", "shortName": "Pist.-Mag." },
+        "fr": { "name": "Poche pour chargeur de pistolet ({color})", "shortName": "Charg. pist." },
+        "jp": { "name": "ピストルマガジンポーチ（{color}）", "shortName": "ピストル" },
+        "pl": { "name": "Ładownica na magazynek pistoletowy ({color})", "shortName": "Mag. pist." },
+        "tu": { "name": "Tabanca şarjörü çantası ({color})", "shortName": "Tabanca" },
+        "kr": { "name": "권총 탄창 파우치 ({color})", "shortName": "권총 탄창" }
+      }
+    },
+    {
+      "key": "grenadepouch",
+      "name": "modularvests_pouch_grenadepouch_{variant}",
+      "prefab": "modularvests/grenade_pouch_{variant}.bundle",
+      "rcid": "grenade_pouch_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "1x1",
+      "width": 1,
+      "height": 1,
+      "grids": [{ "name": "main", "width": 1, "height": 1 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.12,
+      "price": 5000,
+      "locales": {
+        "en": { "name": "Grenade pouch ({color})", "shortName": "Grenade" },
+        "ru": { "name": "Подсумок гранатный ({color})", "shortName": "Гранат." },
+        "ch": { "name": "手榴弹附包（{color}）", "shortName": "手榴弹" },
+        "es": { "name": "Bolsa para granada ({color})", "shortName": "Granada" },
+        "po": { "name": "Bolsa para granada ({color})", "shortName": "Granada" },
+        "ge": { "name": "Granatentasche ({color})", "shortName": "Granate" },
+        "fr": { "name": "Poche à grenade ({color})", "shortName": "Grenade" },
+        "jp": { "name": "グレネードポーチ（{color}）", "shortName": "グレネード" },
+        "pl": { "name": "Ładownica na granat ({color})", "shortName": "Granat" },
+        "tu": { "name": "El bombası çantası ({color})", "shortName": "El bombası" },
+        "kr": { "name": "수류탄 파우치 ({color})", "shortName": "수류탄" }
+      }
+    },
+    {
+      "key": "verticalpouch",
+      "name": "modularvests_pouch_verticalpouch_{variant}",
+      "prefab": "modularvests/vertical_pouch_{variant}.bundle",
+      "rcid": "vertical_pouch_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "1x2",
+      "width": 1,
+      "height": 2,
+      "grids": [{ "name": "main", "width": 1, "height": 2 }, { "name": "second", "width": 1, "height": 2 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.25,
+      "price": 9000,
+      "locales": {
+        "en": { "name": "Narrow utility pouch ({color})", "shortName": "Narrow" },
+        "ru": { "name": "Подсумок утилитарный узкий ({color})", "shortName": "Узкий" },
+        "ch": { "name": "窄型多用途附包（{color}）", "shortName": "窄包" },
+        "es": { "name": "Bolsa utilitaria estrecha ({color})", "shortName": "Estrecha" },
+        "po": { "name": "Bolsa utilitária estreita ({color})", "shortName": "Estreita" },
+        "ge": { "name": "Schmale Universaltasche ({color})", "shortName": "Schmal" },
+        "fr": { "name": "Poche utilitaire étroite ({color})", "shortName": "Étroite" },
+        "jp": { "name": "ナローユーティリティポーチ（{color}）", "shortName": "ナロー" },
+        "pl": { "name": "Wąska kieszeń uniwersalna ({color})", "shortName": "Wąska" },
+        "tu": { "name": "Dar çok amaçlı çanta ({color})", "shortName": "Dar" },
+        "kr": { "name": "슬림 다용도 파우치 ({color})", "shortName": "슬림" }
+      }
+    },
+    {
+      "key": "bottlepouch",
+      "name": "modularvests_pouch_bottlepouch_{variant}",
+      "prefab": "modularvests/bottle_pouch_{variant}.bundle",
+      "rcid": "bottle_pouch_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "1x2",
+      "width": 1,
+      "height": 2,
+      "grids": [{ "name": "main", "width": 1, "height": 2 }, { "name": "second", "width": 1, "height": 2 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.2,
+      "price": 7000,
+      "locales": {
+        "en": { "name": "Bottle pouch ({color})", "shortName": "Bottle" },
+        "ru": { "name": "Подсумок бутылочный ({color})", "shortName": "Бутыл." },
+        "ch": { "name": "水壶附包（{color}）", "shortName": "水壶包" },
+        "es": { "name": "Bolsa para botella ({color})", "shortName": "Botella" },
+        "po": { "name": "Bolsa para garrafa ({color})", "shortName": "Garrafa" },
+        "ge": { "name": "Flaschentasche ({color})", "shortName": "Flasche" },
+        "fr": { "name": "Poche à bouteille ({color})", "shortName": "Bouteille" },
+        "jp": { "name": "ボトルポーチ（{color}）", "shortName": "ボトル" },
+        "pl": { "name": "Kieszeń na butelkę ({color})", "shortName": "Butelka" },
+        "tu": { "name": "Matara çantası ({color})", "shortName": "Matara" },
+        "kr": { "name": "수통 파우치 ({color})", "shortName": "수통" }
+      }
+    },
+    {
+      "key": "medpouch",
+      "name": "modularvests_pouch_medpouch_{variant}",
+      "prefab": "modularvests/med_pouch_{variant}.bundle",
+      "rcid": "med_pouch_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "2x2",
+      "width": 2,
+      "height": 2,
+      "grids": [{ "name": "main", "width": 2, "height": 2 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.3,
+      "price": 12000,
+      "locales": {
+        "en": { "name": "Medical pouch ({color})", "shortName": "Medical" },
+        "ru": { "name": "Подсумок медицинский ({color})", "shortName": "Мед." },
+        "ch": { "name": "医疗附包（{color}）", "shortName": "医疗包" },
+        "es": { "name": "Bolsa médica ({color})", "shortName": "Médica" },
+        "po": { "name": "Bolsa médica ({color})", "shortName": "Médica" },
+        "ge": { "name": "Medizintasche ({color})", "shortName": "Medizin" },
+        "fr": { "name": "Poche médicale ({color})", "shortName": "Médicale" },
+        "jp": { "name": "メディカルポーチ（{color}）", "shortName": "メディカル" },
+        "pl": { "name": "Kieszeń medyczna ({color})", "shortName": "Medyczna" },
+        "tu": { "name": "Tıbbi çanta ({color})", "shortName": "Tıbbi" },
+        "kr": { "name": "의료 파우치 ({color})", "shortName": "의료" }
+      }
+    },
+    {
+      "key": "utilitypouch",
+      "name": "modularvests_pouch_utilitypouch_{variant}",
+      "prefab": "modularvests/utility_pouch_{variant}.bundle",
+      "rcid": "utility_pouch_{variant}",
+      "variants": [
+        { "key": "coyote" },
+        { "key": "olive" },
+        { "key": "multicam" },
+        { "key": "black" },
+        { "key": "emr_summer" }
+      ],
+      "footprint": "2x2",
+      "width": 2,
+      "height": 2,
+      "grids": [{ "name": "main", "width": 2, "height": 2 }, { "name": "second", "width": 2, "height": 1 }],
+      "gridFilter": ["54009119af1c881c07000029"],
+      "gridExcludedFilter": [
+        "5795f317245977243854e041",
+        "566168634bdc2d144c8b456c",
+        "5671435f4bdc2d96058b4569"
+      ],
+      "weight": 0.4,
+      "price": 14000,
+      "locales": {
+        "en": { "name": "Utility pouch ({color})", "shortName": "Utility" },
+        "ru": { "name": "Подсумок утилитарный ({color})", "shortName": "Утилит." },
+        "ch": { "name": "多用途附包（{color}）", "shortName": "多用途" },
+        "es": { "name": "Bolsa utilitaria ({color})", "shortName": "Utilidad" },
+        "po": { "name": "Bolsa utilitária ({color})", "shortName": "Utilidade" },
+        "ge": { "name": "Universaltasche ({color})", "shortName": "Universal" },
+        "fr": { "name": "Poche utilitaire ({color})", "shortName": "Utilitaire" },
+        "jp": { "name": "ユーティリティポーチ（{color}）", "shortName": "ユーティリティ" },
+        "pl": { "name": "Kieszeń uniwersalna ({color})", "shortName": "Uniwers." },
+        "tu": { "name": "Çok amaçlı çanta ({color})", "shortName": "Çok amaçlı" },
+        "kr": { "name": "다용도 파우치 ({color})", "shortName": "다용도" }
+      }
+    }
+  ]
+}

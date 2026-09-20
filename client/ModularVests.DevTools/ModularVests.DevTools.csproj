@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Development tools for the pouch layout (bone editor). Deployed by build/deploy.ps1,
+       NEVER packaged: players get the plugin alone. -->
+  <Import Project="..\GameReferences.props" />
+
+  <PropertyGroup>
+    <RootNamespace>ModularVests.DevTools</RootNamespace>
+    <AssemblyName>ModularVests.DevTools</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- the plugin's internals are open to this assembly (InternalsVisibleTo) -->
+    <ProjectReference Include="..\ModularVests.Client\ModularVests.Client.csproj" Private="false" />
+  </ItemGroup>
+
+</Project>

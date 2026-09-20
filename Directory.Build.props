@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <ModVersion>1.0.0</ModVersion>
+    <Version>$(ModVersion)</Version>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+    <!-- Path to the game installation - used for client references and deployment -->
+    <SptGameDir>D:\Games\SPT_4.1.5</SptGameDir>
+  </PropertyGroup>
+</Project>

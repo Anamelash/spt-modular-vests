@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>ModularVests.Server</RootNamespace>
+    <AssemblyName>ModularVests.Server</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="ModularVests.Server.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- slot grammar and cluster geometry, shared with the client -->
+    <Compile Include="..\..\shared\ClusterGrid.cs" Link="Shared\ClusterGrid.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 4.1.1 is the newest Core on nuget.org that the installed 4.1.5 server loads
+         (PLATE ships the same pin). Anything newer than 4.1.1 is read by reflection. -->
+    <PackageReference Include="SPTarkov.Common" Version="4.1.1" />
+    <PackageReference Include="SPTarkov.DI" Version="4.1.1" />
+    <PackageReference Include="SPTarkov.Server.Core" Version="4.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The server's own Harmony wrapper, which is not on nuget: referenced from the install
+         (SptGameDir, Directory.Build.props) and never copied to the output, the same way the
+         client references the game assemblies. -->
+    <Reference Include="SPTarkov.Reflection">
+      <HintPath>$(SptGameDir)\SPT_Runtime\SPTarkov.Reflection.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(SptGameDir)\SPT_Runtime\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

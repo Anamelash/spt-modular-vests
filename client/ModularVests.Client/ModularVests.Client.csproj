@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\GameReferences.props" />
+
+  <PropertyGroup>
+    <RootNamespace>ModularVests.Client</RootNamespace>
+    <AssemblyName>ModularVests.Client</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- the layout tool lives in its own plugin, which is never shipped -->
+    <InternalsVisibleTo Include="ModularVests.DevTools" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- slot grammar and cluster geometry, shared with the server -->
+    <Compile Include="..\..\shared\ClusterGrid.cs" Link="Shared\ClusterGrid.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- the shipped default bone layout, laid out next to the dll by deploy/package -->
+    <None Include="bones.json" CopyToOutputDirectory="PreserveNewest" />
+    <!-- how each pouch model sits on its seat; ships with the mod -->
+    <None Include="mounts.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- background of an empty pouch cell in the inspect window -->
+    <EmbeddedResource Include="Resources\pouch_slot.png" LogicalName="ModularVests.pouch_slot.png" />
+  </ItemGroup>
+
+</Project>
