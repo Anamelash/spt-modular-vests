@@ -28,7 +28,7 @@ Olive, Multicam, Black and EMR Summer.
 `magpouch_07` has its own kit notes (`magpouch_07/README.md`). The current mod integration
 is defined by `build/build-bundles.ps1`.
 
-`frag_grenade_pouch` has its own kit documentation (`frag_grenade_pouch/README.md`), including its EFT shader maps. The instructions below describe the legacy Unity packages kept with the earlier kits.
+`frag_grenade_pouch` has its own kit documentation (`frag_grenade_pouch/README.md`), including its EFT shader maps. The section below describes the Unity packages that come with the kits.
 
 Each model folder contains:
 
@@ -39,7 +39,10 @@ Each model folder contains:
 - `Unity/Assets/`: the same prefabs and dependencies as individual Unity assets with their `.meta` files.
 - `previews/` and `manifest.json`: visual checks and machine-readable mesh/variant details.
 
-## Import utility pouches into the EFT SDK
+## Import a kit into the EFT SDK by hand
+
+The mod builds its bundles with `build/build-bundles.ps1`. This is the manual route, for
+inspecting a kit in the SDK.
 
 1. Import each desired `.unitypackage`. Alternatively, copy each model folder's `Unity/Assets/` contents into the SDK project's `Assets/`, preserving `.meta` files. Use one method for each model.
 2. Copy the shared `Unity/Editor/UtilityPouchLODSetup.cs` from this directory into the SDK's `Assets/Editor/`. Select a `<model>_lod_meshes.fbx` and run **Tools > Modular Vests > Create selected utility pouch variants**. This rebuilds that model's prefabs using EFT's `Bumped Specular Smap` shader if it is available.
@@ -48,6 +51,6 @@ Each model folder contains:
 
 Every prefab has one root `LODGroup`: LOD0 at screen-relative height `0.05`, LOD1 down to `0.002`, Fade Mode `None`. These thresholds are starting values for a small pouch; tune them after checking the item preview and a worn rig. The prefabs use static `MeshRenderer` objects. They do not provide a rigged `Skin` renderer.
 
-The legacy `.unitypackage` files use Unity Standard as a placeholder shader. The mod's current
-builder produced 78 Windows bundles (65 colour bundles plus 13 shared map bundles) in Unity
-2022.3.43f1; the server files are under `server/bundles/` and `server/bundles.json`.
+The `.unitypackage` files use Unity Standard as a placeholder shader. `build/build-bundles.ps1`
+builds 78 Windows bundles (65 colour bundles plus 13 shared map bundles) in Unity 2022.3.43f1;
+they land under `server/bundles/` with `server/bundles.json`.

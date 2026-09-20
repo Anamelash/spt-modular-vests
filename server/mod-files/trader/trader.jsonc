@@ -32,9 +32,6 @@
   //   fullName  - surname, first name and patronymic ("Романенко Павел Егорович")
   //   firstName - first name AND patronymic ("Павел Егорович"), not the first name alone
   //   location  - a place in Tarkov ("Посёлок", "Химкомбинат"), not a kind of business
-  //
-  // TODO: fullName and firstName still hold the nickname. Give him a surname and a
-  // patronymic in the shape above, then the trader card reads like a vanilla one.
   "locales": {
     "en": {
       "nickname": "Anatoly",

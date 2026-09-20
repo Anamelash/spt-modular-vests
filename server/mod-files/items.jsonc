@@ -752,7 +752,7 @@
       "footprint": "2x2",
       "width": 2,
       "height": 2,
-      // one 2x3 section (0.2.0 had main 2x2 + second 2x1: "second" is gone, "main" grew)
+      // one 2x3 section. Renaming or dropping a grid loses whatever players keep in it.
       "grids": [{ "name": "main", "width": 2, "height": 3 }],
       "gridFilter": ["54009119af1c881c07000029"],
       "gridExcludedFilter": [

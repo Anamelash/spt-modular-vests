@@ -4,6 +4,12 @@ Modular chest rigs for SPT 4.1: a rig carries no pockets of its own, only MOLLE 
 Storage comes from pouches attached to it on the **Modding** screen, and the rig window
 shows the grids of every attached pouch.
 
+> ## ⚠ REQUIRES WTT-CONTENTBACKPORT
+>
+> **[WTT-ContentBackport](https://forge.sp-tarkov.com/) is mandatory, not optional.** The rigs
+> are built on its templates and models. Install it first: without it the mod registers
+> nothing at all — no rigs, no pouches, no trader — and says so in the server log.
+
 ## The line-up
 
 Ten carriers, each in the same five colours as the pouches — Coyote, Olive, MultiCam, Black
@@ -69,10 +75,10 @@ magazines a chest carries, how full a cummerbund is, and the loot weights. Set
 ## Requirements
 
 - SPT 4.1.x
-- [WTT-ContentBackport](https://forge.sp-tarkov.com/) — the 6B45 and the Gladiator-S are built
-  on its templates and models. Without it the mod registers nothing and says so in the server log.
+- **[WTT-ContentBackport](https://forge.sp-tarkov.com/) — mandatory.** The 6B45 and the
+  Gladiator-S are built on its templates and models, and the mod registers nothing without it.
 - Optional: APBS (Acid's Progressive Bot System) — when it is installed, the rigs are weighed
-  into its tiers against the body armor they are built on instead of appearing in every tier.
+  into its tiers against the body armor they are built on, tier by tier.
 
 ## Installation
 
