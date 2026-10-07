@@ -1,6 +1,9 @@
-# Modular Vests
+# Modular Vests – MOLLE chest rigs with attachable pouches for SPT
 
-Modular chest rigs for SPT 4.1: a rig carries no pockets of its own, only MOLLE webbing.
+![Modular Vests – SPT gear mod for Escape From Tarkov](assets/branding/modular-vests-logo-v2-github-640x320.png)
+
+**Modular Vests** adds modular chest rigs to **SPT (Single Player Tarkov)** 4.1, the offline
+Escape From Tarkov project: a rig carries no pockets of its own, only MOLLE webbing.
 Storage comes from pouches attached to it on the **Modding** screen, and the rig window
 shows the grids of every attached pouch.
 
@@ -53,6 +56,10 @@ roubles; he buys back his own line-up, and the plates and panels that go into it
 only buy an item when it buys the parts inside it too. On the flea market a rig comes assembled,
 with its soft armor, collar and plates, like any vanilla armored rig.
 
+Insuring a rig insures the pouches on it: a lost insured rig comes back with every pouch it
+carried, whether or not the pouches were insured themselves, and the trader never keeps a pouch
+back. What was inside the pouches comes back only if it was insured.
+
 ## Bots and loot
 
 Bots wear the modular rigs too. A rig turns up as often as the body armor it is built on: the
@@ -78,7 +85,8 @@ magazines a chest carries, how full a cummerbund is, and the loot weights. Set
 - **[WTT-ContentBackport](https://forge.sp-tarkov.com/) — mandatory.** The 6B45 and the
   Gladiator-S are built on its templates and models, and the mod registers nothing without it.
 - Optional: APBS (Acid's Progressive Bot System) — when it is installed, the rigs are weighed
-  into its tiers against the body armor they are built on, tier by tier.
+  into its tiers against the body armor they are built on, tier by tier. They follow its
+  modded equipment switch: with `enableModdedEquipment` off, bots do not wear them.
 
 ## Installation
 

@@ -12,7 +12,7 @@ namespace ModularVests.Client
     {
         public const string Guid = "com.anamelash.modularvests";
         public const string Name = "Modular Vests";
-        public const string Version = "1.0.0";
+        public const string Version = "1.1.0";
 
         public const string BonesFile = "bones.json";
         public const string MountsFile = "mounts.json";

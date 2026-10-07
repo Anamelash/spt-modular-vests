@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0
+
+- Insuring a rig insures the pouches on it: a lost insured rig comes back with every pouch it
+  carried, and the trader never keeps a pouch back.
+- With APBS installed, bots wear a rig complete with its soft armor and plates, in the tiers
+  where APBS carries them. The rigs follow APBS's modded equipment switch: with
+  `enableModdedEquipment` off, bots do not wear them.
+
 ## 1.0.0
 
 First release.

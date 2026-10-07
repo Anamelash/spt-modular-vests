@@ -74,6 +74,45 @@ public class BotPoolRegistrar(
     }
 
     /// <summary>
+    /// Takes every rig out of the pools and level whitelists again - APBS has been told to keep
+    /// modded equipment off bots, and that goes for the bot types it leaves to the game as well.
+    /// <see cref="Register"/> puts them back. Returns how many pool entries went.
+    /// </summary>
+    public int Unregister(ItemsConfig items)
+    {
+        var ours = items.AllVests().Select(v => ModConfigs.VestTpl(v.Key)).ToHashSet();
+        var removed = 0;
+        foreach (var (_, type) in botTable.Types)
+        {
+            var inventory = type?.BotInventory;
+            if (inventory?.Equipment != null &&
+                inventory.Equipment.TryGetValue(EquipmentSlots.TacticalVest, out var rigs))
+            {
+                removed += ours.Count(tpl => rigs.Remove(tpl));
+            }
+
+            foreach (var tpl in ours)
+            {
+                inventory?.Mods?.Remove(tpl);
+            }
+        }
+
+        foreach (var (_, filters) in botConfig.Equipment ?? [])
+        {
+            foreach (var range in filters?.Whitelist ?? [])
+            {
+                if (range.Equipment != null &&
+                    range.Equipment.TryGetValue(EquipmentSlots.TacticalVest.ToString(), out var rigs))
+                {
+                    rigs.RemoveWhere(ours.Contains);
+                }
+            }
+        }
+
+        return removed;
+    }
+
+    /// <summary>
     /// The armor vest whose share of a bot type's vests the rig inherits: its own donor, or the
     /// donor of the rig it recolours when nobody wears its own (a Couturier colour).
     /// </summary>

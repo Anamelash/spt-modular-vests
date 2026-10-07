@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <ModVersion>1.0.0</ModVersion>
+    <ModVersion>1.1.0</ModVersion>
     <Version>$(ModVersion)</Version>
     <LangVersion>latest</LangVersion>
     <Deterministic>true</Deterministic>

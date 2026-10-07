@@ -22,18 +22,31 @@ namespace ModularVests.Server.Patches;
 /// absent, and takes the pouch cells out of the mod tables (<see cref="BotPouchService"/> hangs
 /// the pouches, with the whole cluster in view).
 ///
+/// A rig stays only in the tiers APBS has mods for it in: that is where the plates and the soft
+/// armor come from, and without them a bot wears the rig bare. With APBS's modded equipment
+/// switched off it imports nothing of ours, and the rigs are kept off bots altogether - its
+/// tiers and the vanilla pools of the bot types it leaves to the game.
+///
 /// APBS is optional, so nothing here references its assembly: the types are found by name and
 /// read by reflection. No APBS, or a structure that has changed, and the patch stays out of
 /// the way with a line in the log.
 /// </summary>
 [Injectable(InjectionType.Singleton)]
-public class ApbsSyncPatch(ModConfigs configs, TemplateTable templateTable, ISptLogger<ApbsSyncPatch> logger)
+public class ApbsSyncPatch(
+    ModConfigs configs,
+    TemplateTable templateTable,
+    BotPoolRegistrar pools,
+    ISptLogger<ApbsSyncPatch> logger)
     : AbstractPatch
 {
     private const string ImportServiceName = "ProgressiveBotSystem.Services.ItemImportService";
+    private const string ModConfigName = "ProgressiveBotSystem.Globals.ModConfig";
     private const string DataLoaderName = "DataLoader";
 
     private static ApbsSyncPatch _self = null!;
+
+    /// <summary>Whether the rigs have been taken out of the vanilla pools on APBS's say-so.</summary>
+    private bool _vanillaPoolsCleared;
 
     /// <summary>The APBS import service, or null when APBS is not installed.</summary>
     public static Type? ImportService => AppDomain.CurrentDomain.GetAssemblies()
@@ -82,6 +95,13 @@ public class ApbsSyncPatch(ModConfigs configs, TemplateTable templateTable, ISpt
                 return;
             }
 
+            var moddedEquipment = ModdedEquipmentEnabled(importService.GetType().Assembly);
+            if (moddedEquipment == null)
+            {
+                logger.Warning("[ModularVests] could not read APBS's modded equipment setting; the rigs " +
+                               "stay in the tiers APBS has imported them into");
+            }
+
             var all = items.AllVests();
 
             // The colours of one carrier share what the prototype's weight gives one rig.
@@ -97,19 +117,30 @@ public class ApbsSyncPatch(ModConfigs configs, TemplateTable templateTable, ISpt
                 .ToList();
 
             var ours = all.Select(vest => ModConfigs.VestTpl(vest.Key)).ToHashSet();
+            var allowed = moddedEquipment != false;
             var tally = new Tally();
             foreach (DictionaryEntry tier in tiers)
             {
-                if (SyncTier(tier.Value, rigs, bots.WeightMultiplier, ours, tally))
+                if (SyncTier(tier.Value, rigs, allowed, bots.WeightMultiplier, ours, tally))
                 {
                     tally.Tiers.Add(Convert.ToInt32(tier.Key));
                 }
             }
 
+            if (!allowed)
+            {
+                SyncVanillaPools(allowed: false);
+                logger.Info($"[ModularVests] APBS {ApbsVersion} keeps modded equipment off bots " +
+                            "(enableModdedEquipment is off), so the rigs are not given to bots");
+                return;
+            }
+
+            SyncVanillaPools(allowed: true);
             logger.Info($"[ModularVests] APBS {ApbsVersion}: {rigs.Count} rig(s) over " +
                         $"{tally.Tiers.Count} tier(s) ({string.Join(", ", tally.Tiers.Order())}); " +
                         $"{tally.Weighed} entries weighed, {tally.Dropped} dropped where the prototype " +
-                        $"is not worn, {tally.Bots} bot pool(s) seen");
+                        $"is not worn, {tally.Unfitted} where APBS has no plates and panels for the rig, " +
+                        $"{tally.Bots} bot pool(s) seen");
         }
         catch (Exception ex)
         {
@@ -124,7 +155,45 @@ public class ApbsSyncPatch(ModConfigs configs, TemplateTable templateTable, ISpt
         public readonly HashSet<int> Tiers = [];
         public int Weighed;
         public int Dropped;
+        public int Unfitted;
         public int Bots;
+    }
+
+    /// <summary>
+    /// The bot types APBS leaves to the game draw from the vanilla pools: out of them while
+    /// APBS keeps modded equipment off bots, back in once it lets it on again (its web app can
+    /// flip the switch without a restart).
+    /// </summary>
+    private void SyncVanillaPools(bool allowed)
+    {
+        var items = configs.Items;
+        var bots = configs.Bots;
+        if (items == null || bots == null || allowed != _vanillaPoolsCleared)
+        {
+            return;
+        }
+
+        if (allowed)
+        {
+            logger.Info("[ModularVests] bots: " + pools.Register(items, bots));
+        }
+        else
+        {
+            pools.Unregister(items);
+        }
+
+        _vanillaPoolsCleared = !allowed;
+    }
+
+    /// <summary>
+    /// APBS's own switch for putting modded equipment on bots, or null when it cannot be read.
+    /// </summary>
+    private static bool? ModdedEquipmentEnabled(Assembly apbs)
+    {
+        var config = SafeGetType(apbs, ModConfigName)
+            ?.GetProperty("Config", BindingFlags.Public | BindingFlags.Static)?.GetValue(null);
+        var compatibility = config?.GetType().GetProperty("CompatibilityConfig")?.GetValue(config);
+        return compatibility?.GetType().GetProperty("EnableModdedEquipment")?.GetValue(compatibility) as bool?;
     }
 
     /// <summary>The prototype a rig's weight follows - its own, or the one it recolours.</summary>
@@ -134,11 +203,12 @@ public class ApbsSyncPatch(ModConfigs configs, TemplateTable templateTable, ISpt
             : vest.CloneTpl;
 
     /// <summary>
-    /// One tier: every bot in it gets our rigs weighed against their prototypes, and the pouch
-    /// cells go out of its mod tables.
+    /// One tier: the pouch cells go out of its mod tables, and every bot in it gets our rigs
+    /// weighed against their prototypes - those the tier has mods for, and none at all when
+    /// <paramref name="allowed"/> is false.
     /// </summary>
     private static bool SyncTier(object? tier, List<(MongoId Tpl, MongoId Prototype, int Sharing)> rigs,
-        double multiplier, HashSet<MongoId> ours, Tally tally)
+        bool allowed, double multiplier, HashSet<MongoId> ours, Tally tally)
     {
         if (tier == null)
         {
@@ -146,23 +216,16 @@ public class ApbsSyncPatch(ModConfigs configs, TemplateTable templateTable, ISpt
         }
 
         var changed = false;
-        var equipment = tier.GetType().GetProperty("EquipmentData")?.GetValue(tier);
-        foreach (var property in equipment?.GetType().GetProperties() ?? [])
-        {
-            var slots = property.GetValue(equipment)?.GetType().GetProperty("Equipment")
-                ?.GetValue(property.GetValue(equipment)) as IDictionary;
-            if (slots == null)
-            {
-                continue;
-            }
 
-            tally.Bots++;
-            changed |= SyncBot(slots, rigs, multiplier, ours, tally);
-        }
-
+        // APBS picks a rig's plates and soft armor from the tier's mod table alone, so a rig the
+        // tier has no entry for would go on a bot bare: its import fills tiers 1 to 7 only, and
+        // nothing at all with modded equipment switched off.
+        // A table that cannot be read leaves every rig where it is.
+        HashSet<MongoId>? fitted = null;
         if (tier.GetType().GetProperty("ModsData")?.GetValue(tier)
             is Dictionary<MongoId, Dictionary<string, HashSet<MongoId>>> mods)
         {
+            fitted = rigs.Where(rig => mods.ContainsKey(rig.Tpl)).Select(rig => rig.Tpl).ToHashSet();
             foreach (var rig in rigs.Where(rig => mods.ContainsKey(rig.Tpl)))
             {
                 foreach (var cell in mods[rig.Tpl].Keys
@@ -175,12 +238,31 @@ public class ApbsSyncPatch(ModConfigs configs, TemplateTable templateTable, ISpt
             }
         }
 
+        var wearable = allowed ? fitted ?? rigs.Select(rig => rig.Tpl).ToHashSet() : [];
+
+        var equipment = tier.GetType().GetProperty("EquipmentData")?.GetValue(tier);
+        foreach (var property in equipment?.GetType().GetProperties() ?? [])
+        {
+            var slots = property.GetValue(equipment)?.GetType().GetProperty("Equipment")
+                ?.GetValue(property.GetValue(equipment)) as IDictionary;
+            if (slots == null)
+            {
+                continue;
+            }
+
+            tally.Bots++;
+            changed |= SyncBot(slots, rigs, wearable, multiplier, ours, tally);
+        }
+
         return changed;
     }
 
-    /// <summary>One bot of one tier: an armoured rig only where its prototype is worn.</summary>
+    /// <summary>
+    /// One bot of one tier: an armoured rig only where its prototype is worn, and only the
+    /// <paramref name="wearable"/> ones - the rest go out of its pools.
+    /// </summary>
     private static bool SyncBot(IDictionary slots, List<(MongoId Tpl, MongoId Prototype, int Sharing)> rigs,
-        double multiplier, HashSet<MongoId> ours, Tally tally)
+        HashSet<MongoId> wearable, double multiplier, HashSet<MongoId> ours, Tally tally)
     {
         var armor = PoolOf(slots, "ArmorVest");
         var armouredRigs = PoolOf(slots, "ArmouredRig");
@@ -202,11 +284,20 @@ public class ApbsSyncPatch(ModConfigs configs, TemplateTable templateTable, ISpt
         foreach (var (tpl, prototype, sharing) in rigs)
         {
             var prototypeWeight = armor != null && armor.TryGetValue(prototype, out var w) ? w : 0;
-            if (prototypeWeight <= 0 || armorTotal <= 0 || rigTotal <= 0)
+            var worn = prototypeWeight > 0 && armorTotal > 0 && rigTotal > 0;
+            if (!worn || !wearable.Contains(tpl))
             {
                 changed |= armouredRigs.Remove(tpl);
                 changed |= rigsPool?.Remove(tpl) ?? false;
-                tally.Dropped++;
+                if (worn)
+                {
+                    tally.Unfitted++;
+                }
+                else
+                {
+                    tally.Dropped++;
+                }
+
                 continue;
             }
 
